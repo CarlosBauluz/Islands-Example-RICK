@@ -8,7 +8,7 @@ const Personajes: FunctionalComponent = () => {
   const [num, setNum] = useState<number>(1)
   const getCharacters = async (num: number) => {
     
-    const response = await fetch(`https://rickandmortyapi.com/api/character?page=${num}`)
+    const response = await fetch(`https://rickandmortyapi.com/api/character?page=${num}&name=${name2}`)
     const data = await response.json()
     const nombres: string[] = data.results.map((o) => o.name)
     
@@ -43,7 +43,7 @@ const Personajes: FunctionalComponent = () => {
     }, 1000); 
 
     return () => clearTimeout(timer); 
-  }, [num]);
+  }, [name2]);
 
   return (
     <div>
@@ -51,9 +51,10 @@ const Personajes: FunctionalComponent = () => {
       <button type="Next" onClick={handleClick1}>Next</button>  
       <button type="Back" onClick={handleClick2}>Back</button>
       {error && <div>El limite es la página {num}</div>}
-      <input type="text" name="nombre" placeholder="Nombre" value={name2} onInput={
+      <input type="text" name="nombre" placeholder="Nombre" value={name2} onInput={(e) => {
+        setName2(e.currentTarget.value)
         setError(false)
-        
+      } 
         } />
       <h1>Ricky List</h1>
       <ul>
