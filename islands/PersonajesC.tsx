@@ -7,7 +7,7 @@ const Personajes: FunctionalComponent = () => {
   const [error, setError] = useState<boolean>(false);
   const [num, setNum] = useState<number>(1)
   const timeout = useRef<any>(undefined)
-  const getCharacters = async (num: number) => {
+  const getCharacters = async () => {
     
     const response = await fetch(`https://rickandmortyapi.com/api/character?page=${num}&name=${name2}`)
     const data = await response.json()
@@ -37,10 +37,10 @@ const Personajes: FunctionalComponent = () => {
     }
   }
 
-  useEffect(() => getCharacters(num), [num])
+  useEffect(() => getCharacters, [num])
   useEffect(() => {
     if (timeout) clearTimeout(timeout.current)
-    timeout.current= setTimeout(getCharacters(num), 1000)
+    timeout.current= setTimeout(getCharacters, 1000)
   }, [name2]);
 
 
